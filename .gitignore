@@ -1,0 +1,4 @@
+*.crt
+*.key
+*.exe
+config.yaml
