@@ -16,8 +16,8 @@ type Config struct {
 var GlobalConfig *Config
 
 func (c *Config) EnsureConfigValid() {
+	// 根据tag自动校验配置
 	validate := validator.New()
-
 	if err := validate.Struct(c); err != nil {
 		logger.Fatalf("verify config fail:%v", err.Error())
 	}

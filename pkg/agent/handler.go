@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/a2659802/window-agent/pkg/message"
+	"github.com/a2659802/window-agent/pkg/utils"
 )
 
 // 验证密码、修改密码消息
@@ -55,9 +56,9 @@ func (a Agent) processPwdMessage(data []byte) {
 }
 
 func (a *Agent) processChangePassword(msg PasswordMessage) error {
-	return fmt.Errorf("unimplement")
+	return utils.SetUserPassword(msg.UserName, msg.Password)
 }
 
 func (a *Agent) processVerifyPassword(msg PasswordMessage) error {
-	return fmt.Errorf("unimplement")
+	return utils.VerifyUserPassword(msg.UserName, msg.Password)
 }
