@@ -15,9 +15,11 @@ import (
 	"github.com/a2659802/window-agent/pkg/config"
 	"github.com/a2659802/window-agent/pkg/logger"
 	"github.com/a2659802/window-agent/pkg/srvconn"
+	"github.com/a2659802/window-agent/pkg/utils"
 	"github.com/kardianos/service"
 )
 
+// TODO 修改服务名和描述
 const (
 	ServiceName        = "GoServiceExampleLogging"
 	ServiceDisplayName = "Go Service Example for Logging"
@@ -126,6 +128,16 @@ func main() {
 
 	// 初始化日志实例
 	logger.SetupLogger(s)
+
+	// 检查权限
+	if !utils.IsAdmin() {
+		logger.Errorf("please running with admin")
+		return
+	}
+	// 切换工作目录到程序位置
+	if err := utils.SetWorkingDirectory(); err != nil {
+		logger.Fatalf("set working directory error:%v", err.Error())
+	}
 
 	if len(*svcFlag) != 0 {
 		err := service.Control(s, *svcFlag)
